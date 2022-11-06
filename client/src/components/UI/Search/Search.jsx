@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { BASE_URL } from '../../../shared/baseUrl';
 import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-import { Swiper, SwiperSlide } from 'swiper/react';
+// import { Swiper, SwiperSlide } from 'swiper/react';
+
 import styles from "./Search.module.scss"
-import 'swiper/css';
+// import 'swiper/css';
 
 
 const Search = ({ categories, onSearch }) => {
     const baseUrl = BASE_URL;
-    const [swiper, setSwiper] = useState()
+    // const [swiper, setSwiper] = useState()
+    const slider = useRef(null);
+
     useEffect(() => {
         const el = document.querySelector(".searchStickyContainer")
         const observer = new IntersectionObserver(
@@ -25,6 +28,57 @@ const Search = ({ categories, onSearch }) => {
         console.log("handleChange", input.value)
         onSearch(input.value)
     }
+
+
+    useEffect(() => {
+
+        const swiper = slider.current;
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        const mousedownHandler = (e) => {
+            isDown = true;
+            // slider.classList.add('active');
+            startX = e.pageX - swiper.offsetLeft;
+            scrollLeft = swiper.scrollLeft;
+        }
+
+        const mouseleaveHandler = () => {
+            isDown = false;
+            // slider.classList.remove('active');
+        }
+
+
+        const mouseupHandler = () => {
+            isDown = false;
+            // slider.classList.remove('active');
+        }
+
+        const mousemoveHandler = (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - swiper.offsetLeft;
+            const walk = (x - startX) * 3; //scroll-fast
+            swiper.scrollLeft = scrollLeft - walk;
+        }
+
+        swiper.addEventListener('mousedown', mousedownHandler);
+
+        swiper.addEventListener('mouseleave', mouseleaveHandler);
+
+        swiper.addEventListener('mouseup', mouseupHandler);
+
+        swiper.addEventListener('mousemove', mousemoveHandler);
+
+
+        return () => {
+            swiper.removeEventListener('mousedown', mousedownHandler);
+            swiper.removeEventListener('mouseleave', mouseleaveHandler);
+            swiper.removeEventListener('mouseup', mouseupHandler);
+            swiper.removeEventListener('mousemove', mousemoveHandler);
+        };
+    }, []);
 
 
     return (
@@ -63,7 +117,7 @@ const Search = ({ categories, onSearch }) => {
                             </button>
                             <a
                                 className="inline-flex items-center px-5 text-sm font-medium"
-                                href={`${baseUrl}/category/download-all`}
+                                href={`${baseUrl}category/download-all`}
                             >
                                 <img
                                     className='mr-3'
@@ -89,39 +143,24 @@ const Search = ({ categories, onSearch }) => {
 
                 <div className="flex items-center">
 
-                    <div className="grow mr-3">
-                        <Swiper
+                    <div ref={slider} className="grow  space-x-4 overflow-x-hidden flex flex-nowrap mr-3">
+                        {categories.map((category) => {
+                            return (
+                                <>
+                                    {
+                                        category.icons.length != 0 &&
+                                        <Link to={"category-" + category._id} spy={true} smooth={true} offset={-300} duration={500} key={category._id} className={styles.categoryBtn}>
+                                            {category.name}
+                                        </Link >
+                                    }
+                                </>
 
-                            slidesPerView={"auto"}
-                            ref={swiper}
-                            spaceBetween={14}
-                            onInit={(swiper) => setSwiper(swiper)}
+                            )
+                        })}
 
-                            onSlideChange={() => console.log('slide change')}
-                            onSwiper={(swiper) => console.log(swiper)}
-                        >
-                            {categories.map((category) => {
-                                return (
-                                    <SwiperSlide>
-                                        {
-                                            category.icons.length != 0 &&
-                                            <>
-                                                <Link to={"category-" + category._id} spy={true} smooth={true} offset={-300} duration={500} key={category._id} className={styles.categoryBtn}>
-                                                    {category.name}
-                                                </Link >
-
-                                            </>
-                                        }
-                                    </SwiperSlide>
-                                )
-                            })}
-
-                        </Swiper>
                     </div>
 
-                    <button onClick={() =>
-
-                        swiper.slideNext()
+                    <button onClick={() => { }
 
 
                     } className={styles.moreCategoriesBtn}>
