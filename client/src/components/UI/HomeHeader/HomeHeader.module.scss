@@ -1,0 +1,23 @@
+.homeHeader {
+    @apply pt-20 pb-16;
+
+    background-image: url(~/public/images/vectopus-bg-img.svg);
+    background-repeat: no-repeat;
+    background-position: left center;
+    h1 {
+        @apply text-[4rem] font-semibold mb-5;
+    }
+
+    h3 {
+        @apply text-[#919191] text-[1.75rem]  leading-normal mb-5 mr-12;
+    }
+
+    p {
+        @apply  font-semibold text-lg;
+
+        &.madeByVectopus {
+            @apply text-black text-sm font-medium;
+        }
+    }
+
+}

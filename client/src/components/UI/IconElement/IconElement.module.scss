@@ -1,0 +1,39 @@
+.relativeContainer {
+    @apply relative pt-[100%] border rounded-lg mb-2;
+}
+
+// cursor-pointer 
+.imageContainer {
+    @apply absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center;
+}
+
+.imageCtrls {
+    @apply absolute top-0 left-0 right-0 bottom-0;
+
+    .ctrlsGrid {
+        @apply grid grid-rows-3 gap-1 p-1 h-full hidden;
+        button, a {
+            @apply font-semibold text-sm rounded-md flex items-center justify-center;
+            background-color: rgba(237, 237, 237, 0.9);
+        }
+        button:last-of-type {
+            @apply bg-[#3F28FF] text-white
+        }
+    }
+
+    &:hover {
+        .ctrlsGrid {
+            @apply grid;
+        }
+    }
+}
+
+.figCaption {
+    @apply text-center text-xs text-[#AEAEAE] truncate;
+}
+
+.iconDetailsCard {
+    @apply relative col-span-8 bg-[#F7F7F7] border border-black rounded-2xl p-12;
+    // grid-column: 1 / span 8;
+    
+}

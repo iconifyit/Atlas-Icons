@@ -1,0 +1,8 @@
+.categoryBtn {
+    @apply bg-[#F2F2F2] whitespace-nowrap inline-block rounded-full text-[#6C6C6C] text-xs py-3 px-5 cursor-pointer
+}
+
+.moreCategoriesBtn  {
+    @apply whitespace-nowrap font-semibold;
+    color: rgba(0, 0, 0, 0.3);
+}
