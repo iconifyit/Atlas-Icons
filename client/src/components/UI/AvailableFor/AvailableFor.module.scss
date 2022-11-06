@@ -1,13 +1,19 @@
 .cardContainer {
-    @apply border-2 border-[#FFD00F] rounded-[40px] pt-16 pb-20 sm:px-16 md:px-20 lg:px-24 xl:px-28 2xl:px-32 mb-32;
+    @apply border-2  pt-16 pb-20 sm:px-16 md:px-20 lg:px-24 xl:px-28 2xl:px-32 mb-32;
+    border-radius: 40px;
+    border-color: #FFD00F;
     h2 {
-        @apply text-[3.25rem] font-semibold text-center mb-6;
+        @apply font-semibold text-center mb-6;
+        font-size: 3.25rem;
     }
     p {
-        @apply text-[#7C7C7C] text-center text-[1.65rem] mx-16 mb-8;
+        @apply text-center text-[1.65rem] mx-16 mb-8;
+        color: #7C7C7C;
+        font-size: 1.65rem;
     }
 
     button {
-        @apply bg-[#3F28FF] block mx-auto text-white text-lg px-10 py-6 rounded-lg font-semibold
+        @apply block mx-auto text-white text-lg px-10 py-6 rounded-lg font-semibold;
+        background-color: #3F28FF;
     }
 }

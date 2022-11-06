@@ -5,11 +5,14 @@
     background-repeat: no-repeat;
     background-position: left center;
     h1 {
-        @apply text-[4rem] font-semibold mb-5;
+        @apply font-semibold mb-5;
+        font-size: 4rem;
     }
 
     h3 {
-        @apply text-[#919191] text-[1.75rem]  leading-normal mb-5 mr-12;
+        @apply leading-normal mb-5 mr-12;
+        color: #919191;
+        font-size: 1.75rem;
     }
 
     p {

@@ -5,11 +5,14 @@
     }
 
     h3 {
-        @apply text-center font-medium text-[2.5rem] mb-5;
+        @apply text-center font-medium mb-5;
+        font-size: 2.5rem;
     }
 
     p {
-        @apply text-[1.35rem] text-[#717171] mb-8 max-w-4xl mx-auto text-center;
+        @apply mb-8 max-w-4xl mx-auto text-center;
+        font-size: 1.35rem;
+        color: #717171;
     }
 
     a {

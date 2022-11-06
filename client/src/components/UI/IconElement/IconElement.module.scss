@@ -1,5 +1,6 @@
 .relativeContainer {
-    @apply relative pt-[100%] border rounded-lg mb-2;
+    @apply relative border rounded-lg mb-2;
+    padding-top: 100%;
 }
 
 // cursor-pointer 
@@ -29,11 +30,13 @@
 }
 
 .figCaption {
-    @apply text-center text-xs text-[#AEAEAE] truncate;
+    @apply text-center text-xs truncate;
+    color: #AEAEAE;
 }
 
 .iconDetailsCard {
-    @apply relative col-span-8 bg-[#F7F7F7] border border-black rounded-2xl p-12;
+    @apply relative col-span-8 border border-black rounded-2xl p-12;
+    background-color: #F7F7F7;
     // grid-column: 1 / span 8;
     
 }

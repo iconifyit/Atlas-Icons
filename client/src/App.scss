@@ -20,9 +20,11 @@
         @apply  transition-all  max-w-0 mr-0;
     }
     &.isPinned {
-        @apply bg-white border-b border-b-[#E0E0E0];
+        @apply bg-white border-b;
+        border-bottom-color: #E0E0E0;
         .search-logo {
-            @apply inline-block max-w-[4rem] mr-6;
+            @apply inline-block  mr-6;
+            max-width: 4rem;
         }
         // background-color: red;
         /* Or anything other than sticky/fixed */ 

@@ -1,5 +1,7 @@
 .categoryBtn {
-    @apply bg-[#F2F2F2] whitespace-nowrap inline-block rounded-full text-[#6C6C6C] text-xs py-3 px-5 cursor-pointer
+    @apply whitespace-nowrap inline-block rounded-full text-xs py-3 px-5 cursor-pointer;
+    background-color: #F2F2F2;
+    color: #6C6C6C;
 }
 
 .moreCategoriesBtn  {

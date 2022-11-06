@@ -3,7 +3,8 @@
 }
 
 .iconContainer {
-    @apply relative  pt-[100%];
+    @apply relative;
+    padding-top: 100%
 }
 
 .imgsAlign {
@@ -15,7 +16,8 @@
 }
 
 .downloadBtn, .copySvgBtn {
-    @apply px-10 py-3 rounded-lg font-semibold text-[0.95rem] border border-2 border-black;
+    @apply px-10 py-3 rounded-lg font-semibold border border-2 border-black;
+    font-size: 0.95rem;
 }
 
 .downloadBtn {
