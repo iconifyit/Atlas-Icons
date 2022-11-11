@@ -1,0 +1,76 @@
+name: vectopus-atlas-icons
+services:
+  client:
+    build:
+      context: client
+      dockerfile: Dockerfile
+    container_name: atlas_icons_client
+    depends_on:
+      server:
+        condition: service_started
+    image: atlas_icons-client-prod:1.0.0
+    links:
+    - server
+    networks:
+      vectopusnetwork: null
+    ports:
+    - mode: ingress
+      target: 3000
+      published: "3000"
+      protocol: tcp
+    restart: always
+    stdin_open: true
+  mongo-express:
+    depends_on:
+      mongodb:
+        condition: service_started
+    environment:
+      ME_CONFIG_MONGODB_AUTH_DATABASE: vectopus
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: "false"
+      ME_CONFIG_MONGODB_PORT: "27017"
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_URL: mongodb://localhost:27017/vectopus
+    image: mongo-express
+    networks:
+      vectopusnetwork: null
+    ports:
+    - mode: ingress
+      target: 8081
+      published: "8888"
+      protocol: tcp
+    restart: always
+  mongodb:
+    command:
+    - mongod
+    - --noauth
+    container_name: mongodb
+    image: mongo
+    networks:
+      vectopusnetwork: null
+    ports:
+    - mode: ingress
+      target: 27017
+      published: "27017"
+      protocol: tcp
+    restart: always
+  server:
+    build:
+      context: server
+      dockerfile: Dockerfile
+    container_name: atlas_icons_api
+    depends_on:
+      mongodb:
+        condition: service_started
+    image: atlas_icons-api-prod:1.0.0
+    networks:
+      vectopusnetwork: null
+    ports:
+    - mode: ingress
+      target: 9000
+      published: "9000"
+      protocol: tcp
+    restart: always
+networks:
+  vectopusnetwork:
+    name: vectopus-atlas-icons_vectopusnetwork
+    driver: bridge

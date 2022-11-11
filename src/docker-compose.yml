@@ -1,0 +1,87 @@
+version: '3.8'
+services:
+
+  # =========================
+  # Mongo Express
+  # =========================
+  mongo-express:
+    image: mongo-express
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://localhost:27017/vectopus
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: true
+      ME_CONFIG_MONGODB_AUTH_DATABASE: vectopus
+      # - ME_CONFIG_MONGODB_AUTH_USERNAME=${MONGO_ROOT_USER}
+      # - ME_CONFIG_MONGODB_AUTH_PASSWORD=${MONGO_ROOT_PASSWORD}
+      # - ME_CONFIG_BASICAUTH_USERNAME=${MONGOEXPRESS_LOGIN}
+      # - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+    networks:
+      - vectopus-network
+    ports:
+      - 8888:8081
+  
+  # =========================
+  # Mongodb container
+  # =========================
+  mongodb:
+    image: mongo
+    restart: always
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    command: mongod --noauth
+    networks:
+      - vectopus-network
+    volumes: 
+      - ./data:/data/
+
+  # =========================     
+  # Server container
+  # =========================
+  server:
+    build: 
+      context: server
+      dockerfile: Dockerfile
+    container_name: atlas_icons_api
+    image: atlas_icons-api-prod:1.0.0
+    restart: always
+    ports:
+      - 9000:9000
+    volumes:
+      - ./server/:/var/app/server      
+    depends_on:
+      - mongodb
+    networks:
+      - vectopus-network
+
+  # =========================
+  # Client container
+  # =========================
+  client:
+    build: 
+      context: client
+      dockerfile: Dockerfile
+    image: atlas_icons-client-prod:1.0.0
+    container_name: atlas_icons_client
+    restart: always
+    ports:
+      - 3000:3000
+    links:
+      - server
+    networks:
+      - vectopus-network
+    volumes:
+      - ./client/:/var/app/server           
+    stdin_open: true
+    depends_on:
+      - server
+
+networks:
+  vectopus-network:
+    driver: bridge
