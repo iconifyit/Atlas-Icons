@@ -8,7 +8,7 @@ ENV jWT_PRIVATE_KEY=jwtPrivateKey
 ENV DATABASE_URL=mongodb://localhost:27017/vectopus
 
 # Set working directory
-WORKDIR /app/server
+WORKDIR /var/app/server
 
 # Install and cache app dependencies
 COPY package*.json /var/app/server/
